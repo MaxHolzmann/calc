@@ -8,23 +8,19 @@ export default function Home() {
   /*
 issues to fix:
 NaN issue with too many inputs
-displaying the old number,
  the logic of using the old number for continous calculation versus a new number
- paragraph display issue adjusting size with inputting (easy fix)
-
-
 */
 
   const handleInput = (value) => {
     if (!isNaN(value) || value === ".") {
       // Number or decimal
       setInputValue((prev) => prev + value);
-    } else if (["+", "-", "*", "/"].includes(value)) {
+    } else if (["+", "-", "*", "/", "Enter"].includes(value)) {
       if (inputValue === "" && firstValue === "") return;
       setFirstValue(inputValue || firstValue);
       setCalcAction(value);
       setInputValue("");
-    } else if (value === "=") {
+    } else if (value === "=" || value === "Enter") {
       if (!firstValue || !calcAction || !inputValue) return;
 
       const num1 = parseFloat(firstValue);
@@ -51,6 +47,8 @@ displaying the old number,
       setInputValue(String(result));
       setFirstValue("");
       setCalcAction("");
+
+      //clear and del values for button functionality
     } else if (value === "Clear") {
       setInputValue("");
       setFirstValue("");
@@ -105,18 +103,24 @@ displaying the old number,
 
       <div className="flex justify-center items-center">
         <div className="border-2 border-black rounded-lg text-black justify-center p-2 flex flex-col shadow-xl">
-          {/* row 1, clear and delete and entering the numbers*/}
+          {/* row 1 */}
           <div className="flex justify-center">
-            <p className="border-2 border-black rounded-sm">{inputValue}</p>
+            <div className="border-2 border-black rounded-sm w-3/4 wrap-normal">
+              {inputValue}
+              <div className="text-sm">{firstValue}</div>
+            </div>
             <button className="border-2 rounded-md border-black p-2 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
               Del
             </button>
-            <button className="border-2 rounded-md border-black p-2 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+            <button
+              onClick={() => handleInput("Clear")}
+              className="border-2 rounded-md border-black p-2 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+            >
               Clear
             </button>
           </div>
 
-          {/* row 2-4 will be even grids of 4*/}
+          {/* numbers and inputs */}
           <div className="flex justify-center flex-col items-center">
             <div className="grid grid-cols-4 gap-3 p-2">
               <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
