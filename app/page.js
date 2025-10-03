@@ -2,30 +2,101 @@
 import { useEffect, useState } from "react";
 export default function Home() {
   let [inputValue, setInputValue] = useState("");
+  let [firstValue, setFirstValue] = useState("");
+  let [calcAction, setCalcAction] = useState("");
+  let first = inputValue;
+  /*
+issues to fix:
+NaN issue with too many inputs
+displaying the old number,
+ the logic of using the old number for continous calculation versus a new number
+ paragraph display issue adjusting size with inputting (easy fix)
+
+
+*/
+
+  const handleInput = (value) => {
+    if (!isNaN(value) || value === ".") {
+      // Number or decimal
+      setInputValue((prev) => prev + value);
+    } else if (["+", "-", "*", "/"].includes(value)) {
+      if (inputValue === "" && firstValue === "") return;
+      setFirstValue(inputValue || firstValue);
+      setCalcAction(value);
+      setInputValue("");
+    } else if (value === "=") {
+      if (!firstValue || !calcAction || !inputValue) return;
+
+      const num1 = parseFloat(firstValue);
+      const num2 = parseFloat(inputValue);
+      let result = 0;
+
+      switch (calcAction) {
+        case "+":
+          result = num1 + num2;
+          break;
+        case "-":
+          result = num1 - num2;
+          break;
+        case "*":
+          result = num1 * num2;
+          break;
+        case "/":
+          result = num2 !== 0 ? num1 / num2 : "Error";
+          break;
+        default:
+          break;
+      }
+
+      setInputValue(String(result));
+      setFirstValue("");
+      setCalcAction("");
+    } else if (value === "Clear") {
+      setInputValue("");
+      setFirstValue("");
+      setCalcAction("");
+    } else if (value === "Del") {
+      setInputValue((prev) => prev.slice(0, -1));
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.value !== "INPUT" && event.target.tagName !== "TEXTAREA") {
-        let entry = Number(event.key);
-        console.log(event.key);
-        if (!isNaN(entry) && event.key !== " ") {
-          setInputValue((prevValue) => prevValue + event.key);
-        } else if (event.key === "Backspace") {
-          setInputValue((prevValue) => prevValue.slice(0, -1));
-        } else {
-          console.log("Not a number, not entering.");
-        }
+      if (
+        event.target.tagName === "INPUT" ||
+        event.target.tagName === "TEXTAREA"
+      )
+        return;
+
+      if (!isNaN(event.key) || event.key === ".") {
+        handleInput(event.key);
+      } else if (["+", "-", "*", "/"].includes(event.key)) {
+        handleInput(event.key);
+      } else if (event.key === "Enter" || event.key === "=") {
+        handleInput("=");
+      } else if (event.key === "Backspace") {
+        handleInput("Del");
+      } else if (event.key.toLowerCase() === "c") {
+        handleInput("Clear");
       }
     };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [inputValue, firstValue, calcAction]);
+
+  useEffect(() => {
+    console.log("firstValue changed:", firstValue);
+  }, [firstValue]);
+
+  useEffect(() => {
+    console.log("calcAction changed:", calcAction);
+  }, [calcAction]);
+
+  useEffect(() => {
+    console.log("inputValue changed:", inputValue);
+  }, [inputValue]);
+
   return (
     <div className="bg-white h-screen">
       <header className="flex justify-center">
@@ -91,7 +162,7 @@ export default function Home() {
                 .
               </button>
               <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
-                ?
+                =
               </button>
               <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
                 /
