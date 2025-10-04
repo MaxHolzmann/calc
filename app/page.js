@@ -7,8 +7,7 @@ export default function Home() {
   let first = inputValue;
   /*
 issues to fix:
-NaN issue with too many inputs
- the logic of using the old number for continous calculation versus a new number
+
 */
 
   const handleInput = (value) => {
@@ -109,7 +108,10 @@ NaN issue with too many inputs
               {inputValue}
               <div className="text-sm">{firstValue}</div>
             </div>
-            <button className="border-2 rounded-md border-black p-2 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+            <button
+              onClick={() => handleInput("Del")}
+              className="border-2 rounded-md border-black p-2 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+            >
               Del
             </button>
             <button
@@ -123,52 +125,100 @@ NaN issue with too many inputs
           {/* numbers and inputs */}
           <div className="flex justify-center flex-col items-center">
             <div className="grid grid-cols-4 gap-3 p-2">
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("7")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 7
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("8")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 8
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("9")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 9
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("+")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 +
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("4")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 4
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("5")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 5
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("6")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 6
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 ">
+              <button
+                onClick={() => handleInput("-")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 "
+              >
                 -
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 ">
+              <button
+                onClick={() => handleInput("1")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 "
+              >
                 1
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 ">
+              <button
+                onClick={() => handleInput("2")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 "
+              >
                 2
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("3")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 3
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 ">
+              <button
+                onClick={() => handleInput("*")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105 "
+              >
                 *
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("0")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 0
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput(".")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 .
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("=")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 =
               </button>
-              <button className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105">
+              <button
+                onClick={() => handleInput("/")}
+                className="border-2 rounded-md border-black p-5 text-xl bg-slate-200 hover:bg-slate-100 hover:scale-105"
+              >
                 /
               </button>
             </div>
